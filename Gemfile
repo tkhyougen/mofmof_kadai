@@ -25,3 +25,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "nested_form_fields"
 gem "jquery-turbolinks"
+gem "nested_form"
+gem "jquery-rails"

@@ -1,4 +1,3 @@
-<%= form_with(model: house, local: true) do |form| %>
 
  <!--*********************** -->
   <% if house.errors.any? %>
@@ -14,6 +13,7 @@
   <% end %>
 
 <!--  ********************** -->
+<%= nested_form_for(@house) do |form| %>
 
   <div class="field">
     <%= form.label :物件名 %>
@@ -22,7 +22,7 @@
 
   <div class="field">
     <%= form.label :rent, "賃料" %>
-    <%= form.number_field :rent　%>円
+    <%= form.number_field :rent %>円
   </div>
 
   <div class="field">
@@ -42,7 +42,7 @@
 
 <span>-----------------------------------------</span>
 
-  <!-- <p> 住所　１，２，３，４  </p> -->
+  <!-- <p> 項目　１，２，３，４  </p> -->
   <%= form.fields_for :stations do |station_form| %>
     <div class="field">
         <%= station_form.label :line, "路線名" %>
@@ -59,13 +59,9 @@
         <%= station_form.number_field :minute, placeholder:1 %>分
     </div>
 
-      <% if @house.persisted? %>
-        <%= station_form.check_box :_destroy %>
-        <%= station_form.label :_destroy, "削除" %><br />
-      <% end %>
+      <%= form.link_to_remove "項目削除", %>
   <% end %>
-
-
+      <%= form.link_to_add "項目追加", :stations %>
 
 
     <div class="actions">
