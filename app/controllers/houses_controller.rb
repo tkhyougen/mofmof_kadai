@@ -20,6 +20,10 @@ class HousesController < ApplicationController
 
   # GET /houses/1/edit
   def edit
+    if @house.stations.last.present?
+    else
+       @house.stations.build
+    end
   end
 
   # POST /houses
@@ -43,12 +47,16 @@ class HousesController < ApplicationController
   # PATCH/PUT /houses/1.json
   def update
     respond_to do |format|
-      if @house.update(house_params)
-        format.html { redirect_to @house, notice: 'House was successfully updated.' }
-        format.json { render :show, status: :ok, location: @house }
+      if params[:back]
+        render:edit
       else
-        format.html { render :edit }
-        format.json { render json: @house.errors, status: :unprocessable_entity }
+          if @house.update(house_params)
+          format.html { redirect_to @house, notice: 'House was successfully updated.' }
+          format.json { render :show, status: :ok, location: @house }
+          else
+          format.html { render :edit }
+          format.json { render json: @house.errors, status: :unprocessable_entity }
+          end
       end
     end
   end
@@ -72,6 +80,6 @@ class HousesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def house_params
       params.require(:house).permit(:name, :rent, :address, :year, :remarks,
-        stations_attributes:[:line, :station, :minute, :_destroy])
+        stations_attributes:[:line, :station, :minute, :_destroy, :id])
     end
 end

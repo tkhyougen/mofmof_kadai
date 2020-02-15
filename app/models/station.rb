@@ -1,7 +1,7 @@
 class Station < ApplicationRecord
-  validates :line, presence: true
-  validates :station, presence: true
-  validates :minute, presence: true
+  validates :line, presence: false
+  validates :station, presence: false
+  validates :minute, presence: false
 
   belongs_to :house
 end
