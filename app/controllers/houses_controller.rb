@@ -16,6 +16,7 @@ class HousesController < ApplicationController
   def new
     @house = House.new
     @house.stations.build
+    
   end
 
   # GET /houses/1/edit

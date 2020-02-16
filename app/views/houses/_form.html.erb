@@ -1,4 +1,4 @@
-
+<%= nested_form_for(@house) do |form| %>
  <!--*********************** -->
   <% if house.errors.any? %>
     <div id="error_explanation">
@@ -13,11 +13,9 @@
   <% end %>
 
 <!--  ********************** -->
-<%= nested_form_for(@house) do |form| %>
-
   <div class="field">
     <%= form.label :物件名 %>
-    <%= form.text_field :name, placeholder:"〇〇ハイツ" %>
+    <%= form.text_field :name, placeholder:"例：〇〇ハイツ" %>
   </div>
 
   <div class="field">
@@ -27,12 +25,12 @@
 
   <div class="field">
     <%= form.label :address, "住所" %>
-    <%= form.text_area :address, placeholder:"東京都XXXX" %>
+    <%= form.text_area :address, placeholder:"例：東京都XXXX" %>
   </div>
 
   <div class="field">
     <%= form.label :year, "築年数" %>
-    <%= form.number_field :year, placeholder:"東京都XXXX" %>年
+    <%= form.number_field :year %>年
   </div>
 
   <div class="field">
@@ -42,28 +40,29 @@
 
 <span>-----------------------------------------</span>
 
+    <%= form.fields_for :stations do |station_form| %>
 
-  <%= form.fields_for :stations do |station_form| %>
+    <p class="aaa"><b>最寄駅:<%= station_form.index.to_i + 1 %></b></p>
 
-    <div class="field">
-        <%= station_form.label :line, "路線名" %>
-        <%= station_form.text_field :line, placeholder:"○○線" %>線
-    </div>
+      <div class="field">
+          <%= station_form.label :line, "路線名" %>
+          <%= station_form.text_field :line, placeholder:"例：JR京浜東北" %>線
+      </div>
 
-    <div class="field">
-        <%= station_form.label :station, "駅名" %>
-        <%= station_form.text_field :station, placeholder:"○○駅" %>駅
-    </div>
+      <div class="field">
+          <%= station_form.label :station, "駅名" %>
+          <%= station_form.text_field :station, placeholder:"例：川崎" %>駅
+      </div>
 
-    <div class="field">
-        <%= station_form.label :minute, "徒歩分数" %>
-        <%= station_form.number_field :minute, placeholder:1 %>分
-    </div>
+      <div class="field">
+          <%= station_form.label :minute, "徒歩分数" %>
+          <%= station_form.number_field :minute %>分
+      </div>
+
 
 <span>-----------------------------------------</span>
       <%= station_form.link_to_remove "項目削除" %>
-
-  <% end %>
+    <% end %>
        <%= form.link_to_add "項目追加",:stations %>
 
     <div class="actions">
@@ -71,3 +70,21 @@
     </div>
 
 <% end %>
+
+
+<!-- ************************************************ -->
+<script type="text/javascript">
+
+     $(document).on('nested:fieldAdded', function() {
+      var count = $('.aaa').length;
+         //alert(count)
+        $('.aaa').last().html(count).prepend("最寄駅").wrap("<b></b>");
+      });
+
+    $(document).on('nested:fieldRemoved', function() {
+      var count = $('.aaa').length-1;
+        //alert(count)
+       $('.aaa').last().html(count).prepend("最寄駅").wrap("<b></b>");
+     });
+
+</script>
