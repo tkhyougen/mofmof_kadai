@@ -16,15 +16,14 @@ class HousesController < ApplicationController
   def new
     @house = House.new
     @house.stations.build
-    
   end
 
   # GET /houses/1/edit
   def edit
-    if @house.stations.last.present?
-    else
+    # if @house.stations.last.present?
+    # else
        @house.stations.build
-    end
+    # end
   end
 
   # POST /houses

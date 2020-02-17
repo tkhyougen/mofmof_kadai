@@ -42,7 +42,7 @@
 
     <%= form.fields_for :stations do |station_form| %>
 
-    <p class="aaa"><b>最寄駅:<%= station_form.index.to_i + 1 %></b></p>
+      <p class="aaa"><b>最寄駅:<%= station_form.index.to_i + 1 %></b></p>
 
       <div class="field">
           <%= station_form.label :line, "路線名" %>
@@ -59,11 +59,8 @@
           <%= station_form.number_field :minute %>分
       </div>
 
-
-<span>-----------------------------------------</span>
-      <%= station_form.link_to_remove "項目削除" %>
     <% end %>
-       <%= form.link_to_add "項目追加",:stations %>
+
 
     <div class="actions">
       <%= form.submit "投稿する" %>
@@ -71,7 +68,7 @@
 
 <% end %>
 
-
+<%#
 <!-- ************************************************ -->
 <script type="text/javascript">
 
@@ -87,4 +84,4 @@
        $('.aaa').last().html(count).prepend("最寄駅").wrap("<b></b>");
      });
 
-</script>
+</script> %>
